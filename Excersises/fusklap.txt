@@ -1,0 +1,131 @@
+
+
+# 📌 FUSKLAPP – KÄNN IGEN FÖRDELNING FRÅN HISTOGRAM
+
+## 🔍 Steg 0: Tre snabba frågor
+
+1. Är datan **diskret** (heltal, staplar med mellanrum) eller **kontinuerlig** (slät)?
+2. Finns **negativa värden**?
+3. Är formen **symmetrisk** eller **sned**?
+
+---
+
+## 🔔 NORMALFÖRDELNING
+
+### Hur ser histogrammet ut?
+
+* Symmetriskt
+* Klockformat
+* Negativa och positiva värden
+* En tydlig topp i mitten
+
+### Perfekt tentasvar:
+
+> Histogrammet är symmetriskt och klockformat kring sitt medelvärde, vilket är typiskt för en normalfördelning.
+
+---
+
+## ➡️ GAMMAFÖRDELNING
+
+### Hur ser histogrammet ut?
+
+* Endast positiva värden
+* Sned åt höger
+* Hög stapel nära 0
+* Lång högersvans
+* Kontinuerlig (slät)
+
+### Perfekt tentasvar:
+
+> Histogrammet är kontinuerligt, endast definierat för positiva värden och snett åt höger, vilket tyder på en gammafördelning.
+
+---
+
+## 🧱 BINOMIALFÖRDELNING
+
+### Hur ser histogrammet ut?
+
+* Diskret (heltal)
+* Begränsat intervall (0 till n)
+* Kan vara symmetrisk eller sned
+* Inga värden utanför intervallet
+
+### Perfekt tentasvar:
+
+> Histogrammet är diskret och begränsat till ett ändligt intervall, vilket är typiskt för en binomialfördelning.
+
+---
+
+## 🧱➡️ NEGATIV BINOMIALFÖRDELNING
+
+### Hur ser histogrammet ut?
+
+* Diskret
+* Sned åt höger
+* Många små värden
+* Lång svans åt höger
+* Ingen övre gräns
+
+### Perfekt tentasvar:
+
+> Histogrammet är diskret och snett åt höger med lång svans, vilket är karakteristiskt för en negativ binomialfördelning.
+
+---
+
+## 🧱📉 GEOMETRISK FÖRDELNING
+
+### Hur ser histogrammet ut?
+
+* Diskret
+* Största stapeln vid 1
+* Avtar snabbt
+* Lång svans åt höger
+
+### Perfekt tentasvar:
+
+> Histogrammet är diskret med högst sannolikhet vid 1 och avtar därefter, vilket är typiskt för en geometrisk fördelning.
+
+---
+
+## ⚡ SUPERSNABB JÄMFÖRELSE
+
+| Fördelning       | Diskret | Negativa | Form       |
+| ---------------- | ------- | -------- | ---------- |
+| Normal           | ❌       | ✅        | Symmetrisk |
+| Gamma            | ❌       | ❌        | Sned höger |
+| Binomial         | ✅       | ❌        | Begränsad  |
+| Negativ binomial | ✅       | ❌        | Sned höger |
+| Geometrisk       | ✅       | ❌        | Topp vid 1 |
+
+---
+
+## 🧠 10-sekunders-regel (TENTA!)
+
+* Negativa värden? → **Normal**
+* Endast positiva + slät + sned? → **Gamma**
+* Diskret + maxvärde n? → **Binomial**
+* Diskret + lång svans? → **Negativ binomial**
+* Diskret + topp vid 1? → **Geometrisk**
+
+---
+✅ Facit & varför (kort)
+
+A: Normal ✔️
+Slät S-form, symmetrisk → normalfördelning.
+
+B: Uniform ✔️
+Nästan rak linje → jämn sannolikhet → uniform.
+
+C: Gamma ✔️
+Slät, brant i början, planar ut → högerskev kontinuerlig → gamma.
+
+D: Binomial ✔️
+Trappsteg, slutar vid maxvärde 
+𝑛
+n → binomial.
+
+E: Negativ binomial ✔️
+Trappsteg + lång svans, planar ut sent → negativ binomial.
+
+F: Geometrisk ✔️
+Stort hopp tidigt, nästan klar direkt → geometrisk.
