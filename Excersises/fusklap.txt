@@ -129,3 +129,7 @@ Trappsteg + lång svans, planar ut sent → negativ binomial.
 
 F: Geometrisk ✔️
 Stort hopp tidigt, nästan klar direkt → geometrisk.
+
+Boxen sträcker sig från första kvartilen (Q1) till tredje kvartilen (Q3) och innehåller de mittersta 50 % av observationerna (IQR).
+Linjen i boxen visar medianen (Q2).
+Whiskers markerar det normala variationsintervallet, och värden utanför detta betraktas som extremvärden (outliers).
