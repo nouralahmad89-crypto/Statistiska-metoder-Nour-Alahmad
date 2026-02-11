@@ -24,8 +24,12 @@ class LinearRegression:
     def __repr__(self):
         if self.beta_ is None:
             return "LinearRegression(unfitted)" # Om modellen inte är tränad
-        return (f"LinearRegression(n={self.n_}, d={self.d_}, "
-                f"add_intercept={self.add_intercept}, rmse={self.rmse():.4f})") # Om  modellen tränad
+        beta = self.beta_.reshape(-1)
+        terms = [f"{b:.4f}" for b in beta]
+    
+        return "Y = " + " + ".join(
+        [terms[0]] + [f"{terms[i]}*X{i}" for i in range(1, len(terms))]
+        )
     def __str__(self):
         return self.__repr__()
 
