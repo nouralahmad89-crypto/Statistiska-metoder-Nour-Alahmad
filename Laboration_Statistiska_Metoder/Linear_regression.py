@@ -121,33 +121,26 @@ class LinearRegression:
         return float(np.sqrt(self.sse_ / self.n_))
     
     #========== VG============
-    def f_test(self, alpha=0.05):
+    def f_test(self):
         if self.beta_ is None:
            raise RuntimeError("Model is not fitted.")
  
         y = self._y.reshape(-1)
         n = self.n_
         d = self.d_
-
         # Syy
         y_mean = np.mean(y)
         Syy = np.sum((y - y_mean) ** 2)
-
         # SSR
         SSR = Syy - self.sse_
-
        # sigma^2_hat
         sigma2_hat = self.sse_ / (n - d - 1)
-
         # F-statistic
         F = (SSR / d) / sigma2_hat
-
         # p-value
         p_value = stats.f.sf(F, d, n - d - 1)
 
-        reject = p_value < alpha
-
-        return F, p_value, reject
+        return F, p_value
 
     def r_squared(self): #     Reports how much of the variance in y is explained by the model.
 
@@ -197,10 +190,7 @@ class LinearRegression:
          t_i = beta[i] / se_i
 
          # Two-sided p-value
-         p_i = 2 * min(
-          stats.t.cdf(t_i, df),
-          stats.t.sf(t_i, df)
-             )
+         p_i = 2 * stats.t.sf(np.abs(t_i), df)
 
          return {
         "i": i,
@@ -208,14 +198,36 @@ class LinearRegression:
         "se": se_i,
         "t": t_i,
         "p": p_i,
-        "significant": p_i < alpha
         }
 
-    def pearson_matrix(self): 
-        """ 
-        Pearson correlation between explanatory variables 
-        (without intercept column) 
-        """ 
-        X = self._X[:, 1:] if self.add_intercept else self._X 
+     
+    def dependency_check(self):
+        """
+        Beräknar Pearson-korrelation (r) mellan alla par av förklarande variabler.
+        Använder scipy.stats.pearsonr enligt PM.
+        Skriver ut r och p-värde för varje variabelpar.
+        """
 
-        return np.corrcoef(X, rowvar=False) 
+       # Kontrollera att modellen är tränad
+        if self._X is None:
+           raise RuntimeError("Modellen är inte tränad. Kör fit(X, y) först.")
+
+        # Ta bort intercept-kolumnen (om den finns),
+        # eftersom den bara innehåller 1:or och inte ska ingå i korrelationstestet
+        if self.add_intercept:
+           X_feat = self._X[:, 1:]
+        else:
+           X_feat = self._X
+
+        # Antal förklarande variabler
+        d = X_feat.shape[1]
+
+       # Loopa över alla par av variabler
+        for i in range(d):
+           for j in range(i + 1, d):
+
+                # Beräkna Pearson-korrelation och p-värde
+                r, p = stats.pearsonr(X_feat[:, i], X_feat[:, j])
+
+                # Skriv ut resultatet
+                print(f"X{i+1} och X{j+1}: r = {r:.4f}, p-värde = {p:.4f}")
