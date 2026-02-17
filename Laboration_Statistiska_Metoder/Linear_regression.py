@@ -190,7 +190,7 @@ class LinearRegression:
          t_i = beta[i] / se_i
 
          # Two-sided p-value
-         p_i = 2 * stats.t.sf(np.abs(t_i), df)
+         p_i = 2*min(stats.t.cdf(t_i, df), stats.t.sf(t_i, df))
 
          return {
         "i": i,
@@ -231,3 +231,34 @@ class LinearRegression:
 
                 # Skriv ut resultatet
                 print(f"X{i+1} och X{j+1}: r = {r:.4f}, p-värde = {p:.4f}")
+    def confidence_interval(self, i, alpha=0.05):
+       """
+       Konfidensintervall för parameter beta[i]:
+       beta_hat[i] ± t_(1-alpha/2, n-p) * sqrt(sigma2_hat * c_ii)
+       """
+       if self.beta_ is None:
+           raise RuntimeError("Modellen är inte tränad. Kör fit(X, y) först.")
+
+       X = self._X
+       n = X.shape[0]
+       p = X.shape[1]  # inkl intercept
+
+       if i < 0 or i >= p:
+           raise IndexError("Ogiltigt parameterindex.")
+
+       # sigma^2-hat = SSE/(n-p)
+       sigma2_hat = self.sse_ / (n - p)
+
+       # c = (X^T X)^(-1) (pseudoinvers för stabilitet)
+       c = np.linalg.pinv(X.T @ X)
+
+       # t-kritiskt värde
+       tcrit = stats.t.ppf(1 - alpha/2, df=n - p)
+
+       beta_i = float(self.beta_.reshape(-1)[i])
+       se_i = float(np.sqrt(sigma2_hat * c[i, i]))
+
+       lower = beta_i - tcrit * se_i
+       upper = beta_i + tcrit * se_i
+
+       return lower, upper
