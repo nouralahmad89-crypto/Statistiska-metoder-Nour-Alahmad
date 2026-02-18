@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import random
+from scipy import stats  # <-- NYTT: för probplot
 
 rng = np.random.default_rng()
 
@@ -62,18 +63,30 @@ def plot_ogive(data):
     plt.show()
 
 
+def plot_probplot(data):
+    """QQ-plot mot normalfördelning (probplot)."""
+    plt.figure()
+    stats.probplot(data, dist="norm", plot=plt)
+    plt.title("Probplot (Normal QQ-plot)")
+    plt.show()
+
+
 def quiz_round():
     dist_name = random.choice(list(DISTRIBUTIONS.keys()))
     data = DISTRIBUTIONS[dist_name]()
 
-    plot_type = random.choice(["histogram", "ogive"])
+    # <-- NYTT: probplot som tredje alternativ
+    plot_type = random.choice(["histogram", "ogive", "probplot"])
 
     if plot_type == "histogram":
         plot_histogram(data)
-    else:
+    elif plot_type == "ogive":
         plot_ogive(data)
+    else:
+        plot_probplot(data)
 
     print("\nWhich distribution is this?")
+    print(f"(Plot shown: {plot_type})")  # valfritt men hjälpsamt
     print("Options:")
     for name in DISTRIBUTIONS.keys():
         print(" -", name)
@@ -108,4 +121,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
